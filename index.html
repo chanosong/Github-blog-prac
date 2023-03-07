@@ -12,7 +12,7 @@
   <!-- 테일윈드 -->
   <!-- css 디자인 쉽게 만들어 줌 -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
@@ -33,29 +33,29 @@
 
 
   <style>
-    body {
-    margin: 0;
-  }
-  
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  #viewer-1 {
-    padding: 0 10px;
-  }
-  
-  html > body,
-  html > body .toastui-editor-contents,
-  html > body .toastui-editor-contents code,
-  html > body .toastui-editor-contents pre {
-    font-family: "GmarketSansMedium";
-  }
-  
+      body {
+      margin: 0;
+    }
+    
+    @font-face {
+      font-family: "GmarketSansMedium";
+      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+        format("woff");
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    #viewer-1 {
+      padding: 0 10px;
+    }
+    
+    html > body,
+    html > body .toastui-editor-contents,
+    html > body .toastui-editor-contents code,
+    html > body .toastui-editor-contents pre {
+      font-family: "GmarketSansMedium";
+      text-underline-position: under;
+    }
   </style>
   
 
@@ -147,13 +147,13 @@
       ]
     });
 
-    function showPage(e1) {
-      $(e1).addClass('text-red-500');
-      $(e1).parent().siblings().find(' > a').removeClass('text-red-500');
+    function showPage(el) {
+      $(el).addClass('text-red-500');
+      $(el).parent().siblings().find(' > a').removeClass('text-red-500');
 
-      const pageNo = $(e1).find(' > span:first-child').text();
-      const subject = $(e1).find(' > span:nth-child(2)').text();
-      const createDate = $(e1).find(' > span:nth-child(3)').text();
+      const pageNo = $(el).find(' > span:first-child').text();
+      const subject = $(el).find(' > span:nth-child(2)').text();
+      const createDate = $(el).find(' > span:nth-child(3)').text();
 
       $('.current-page-no').html(pageNo);
       $('.current-page-subject').html(subject);
@@ -180,8 +180,6 @@
     } else {
       $('.list > li:first-child > a').click();
     }
-
-    showPage(4);
   </script>
 </body>
 </html>
