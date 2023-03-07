@@ -1,0 +1,49 @@
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
+<!-- 신택스 하이라이터 플러그인 라이브러리 시작 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
+<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+<!-- 신택스 하이라이터 플러그인 라이브러리 끝 -->
+
+<!-- katex 플러그인 라이브러리 시작 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.13/katex.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.13/katex.min.css">
+<!-- katex 플러그인 라이브러리 끝 -->
+
+<!-- uml 플러그인 라이브러리 시작 -->
+<script src="https://uicdn.toast.com/editor-plugin-uml/latest/toastui-editor-plugin-uml.min.js"></script>
+<!-- uml 플러그인 라이브러리 끝 -->
+
+<template id="viewer-1-template">
+  # 안녕하세요.
+  ## 반가워요.
+  - 하하
+  - 호호
+  - 히히
+
+  # 자바
+  ```java
+  // 주석입니다.
+  int a = 10;
+  int b = 20;
+  System.out.println(a + b);
+  ```
+
+  $$katex
+  x^2 + y^2 = 1
+  $$
+
+  ```html
+  <script src="경로"></script>
+  ```
+
+  $$uml
+  (First usecase)
+  (Another usecase) as (UC2)
+  usecase UC3
+  usecase (Last\nusecase) as UC4
+  $$
+</template>
+<div id="viewer-1"></div>
