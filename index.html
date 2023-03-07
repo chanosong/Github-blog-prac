@@ -55,66 +55,126 @@
 </head>
 <body>
 
-<div id="viewer-1"></div>
-<ul>
-  <li><a href="javascript:showPage(4);">4번글</a></li>
-  <li><a href="javascript:showPage(3);">3번글</a></li>
-  <li><a href="javascript:showPage(2);">2번글</a></li>
-  <li><a href="javascript:showPage(1);">1번글</a></li>
-</ul>
+  <div class="page-head text-3x1 font-bold p-2">
+    <span class="current-page-no text-lg"></span>
+    <span class="current-page-subject"></span>
+    <span class="current-page-createDate text-lg"></span>
+  </div>
+  
+  <div id="viewer-1"></div>
 
-<script>
-  const Editor = toastui.Editor;
+  <ul class="list">
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+          <span class="data-id-5">5</span>
+          <span class="mr-auto underline">JAVA, UML 예시</span>
+          <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+          <span class="data-id-5">4</span>
+          <span class="mr-auto underline">각종 테스트</span>
+          <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+          <span class="data-id-5">3</span>
+          <span class="mr-auto underline">HTML 기초</span>
+          <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+          <span class="data-id-5">2</span>
+          <span class="mr-auto underline">CSS 기초</span>
+          <span>2023-03-08</span>
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" onclick="showPage(this);" class="block p-2 hover:text-red-500 flex gap-2">
+          <span class="data-id-5">1</span>
+          <span class="mr-auto underline">JAVA 변수</span>
+          <span>2023-03-08</span>
+      </a>
+    </li>
+  </ul>
 
-  function katexPlugin() {
-    const toHTMLRenderers = {
-      katex(node) {
-        console.log("HI");
+  <script>
+    const Editor = toastui.Editor;
 
-        let html = katex.renderToString(node.literal, {
-          throwOnError: false
-        });
+    function katexPlugin() {
+      const toHTMLRenderers = {
+        katex(node) {
+          console.log("HI");
 
-        return [
-          { type: "openTag", tagName: "div", outerNewLine: true },
-          { type: "html", content: html },
-          { type: "closeTag", tagName: "div", outerNewLine: true }
-        ];
-      }
-    };
+          let html = katex.renderToString(node.literal, {
+            throwOnError: false
+          });
 
-    return { toHTMLRenderers };
-  }
+          return [
+            { type: "openTag", tagName: "div", outerNewLine: true },
+            { type: "html", content: html },
+            { type: "closeTag", tagName: "div", outerNewLine: true }
+          ];
+        }
+      };
 
-  const viewer1MarkdownSource = "로딩중...";
+      return { toHTMLRenderers };
+    }
 
-  const viewer1 = Editor.factory({
-    el: document.querySelector("#viewer-1"),
-    viewer: true,
-    initialValue: viewer1MarkdownSource,
-    plugins: [
-      [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
-      katexPlugin,
-      [
-        toastui.Editor.plugin.uml,
-        { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+    const viewer1MarkdownSource = "로딩중...";
+
+    const viewer1 = Editor.factory({
+      el: document.querySelector("#viewer-1"),
+      viewer: true,
+      initialValue: viewer1MarkdownSource,
+      plugins: [
+        [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
+        katexPlugin,
+        [
+          toastui.Editor.plugin.uml,
+          { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+        ]
       ]
-    ]
-  });
+    });
 
-  function showPage(pageNo) {
-    fetch(pageNo + ".md")
-      .then(response => response.text()) // 응답에서 본문만 취한다.
-      .then(text => {
-        viewer1.setMarkdown(text);
+    function showPage(e1) {
+      $(e1).addClass('text-red-500');
+      $(e1).parent().siblings().find(' > a').removeClass('text-red-500');
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      })
-  }
-  showPage(4);
-</script>
+      const pageNo = $(e1).find(' > span:first-child').text();
+      const subject = $(e1).find(' > span:nth-child(2)').text();
+      const createDate = $(e1).find(' > span:nth-child(3)').text();
+
+      $('.current-page-no').html(pageNo);
+      $('.current-page-subject').html(subject);
+      $('.current-page-createDate').html(createDate);
+
+
+      fetch(pageNo + ".md")
+        .then(response => response.text()) // 응답에서 본문만 취한다.
+        .then(text => {
+          viewer1.setMarkdown(text);
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        })
+    }
+
+    const params = new URL(document.location).searchParams;
+    const paramId = params.get("id");
+
+    if ($('.data-id-' + paramId).length == 1) {
+      $('.data-id-' + paramId).parent().click();
+    } else {
+      $('.list > li:first-child > a').click();
+    }
+
+    showPage(4);
+  </script>
 </body>
 </html>
